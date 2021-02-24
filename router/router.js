@@ -1,4 +1,5 @@
 let fs = require('fs');
+let control = require('./control');
 
 module.exports = function(app){
     app.get('/', (req,res)=>{  
@@ -16,14 +17,15 @@ module.exports = function(app){
         let dir = fs.readdirSync('./data', 'utf-8');
         console.log(dir);
 
+        console.log("testing control" + control.getTotal());
+
         fs.readdir('./data', 'utf-8', (err,files)=>{
             console.log(`async ${files[0]}`);
-        })
-
-        res.render('index.ejs', {   
-            title: "MANAGE MY MONEY",
-            total: total,
-            length: 5
-        })
+            res.render('index.ejs', {   
+                title: "MANAGE MY MONEY",
+                total: total,
+                length: 5
+            })
+        }) 
     })
 }

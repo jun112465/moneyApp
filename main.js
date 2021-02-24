@@ -24,3 +24,4 @@ app.use(session({
 }));
 */
 const router = require('./router/router')(app);
+let test = require('control');
