@@ -2,3 +2,14 @@
 
 <h2>총 보유액 : <%= total %></h2>
 
+<h3>
+    <ul>
+        <% for(let i=0; i<list.length; i++) { %>
+            <li><%=list[i].name%> : <%=list[i].value%></li>
+        <%}%> 
+    </ul>
+</h3>
+
+<input type="button" value="수정하기">
+
+

@@ -1,3 +1,1 @@
-let test = require('./control');
-
-console.log(test.getTotal());
+console.log(__dirname);

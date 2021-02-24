@@ -1,12 +1,12 @@
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
-const session = require('express-session');
 
 app.set('views', __dirname + '/views/');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
+app.use(express.static(__dirname+'/public'));
 
+console.log(__dirname);
 
 
 let server = app.listen(3000, ()=>{
@@ -23,5 +23,7 @@ app.use(session({
     saveUnintialized: true
 }));
 */
-const router = require('./router/router')(app);
-let test = require('control');
+const router = require('./router/route')(app);
+
+let test = require('./control');
+test.getTotal();
