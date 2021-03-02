@@ -5,6 +5,7 @@ module.exports = {
         return fs.readFileSync('./data/total')
     },
     updateTotal : function(){
+        let total = 0;
         let files = fs.readdirSync('./data/bank', 'utf-8')
         for(let i=0; i<files.length; i++){
             total += Number(fs.readFileSync(`./data/bank/${files[i]}`, 'utf-8'));
@@ -25,7 +26,8 @@ module.exports = {
             list[i].value = fs.readFileSync(`./data/bank/${filelist[i]}`,'utf-8');
         }
         return list;
-    }
+    },
+    
 }
 
 // function _updateTotal(){
