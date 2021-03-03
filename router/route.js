@@ -1,44 +1,47 @@
 let fs = require('fs');
-let bodyParser = require('body-parser');
 let control = require('../control');
+let express = require('express');
+let router = express.Router();
 
+router.get('/', (req,res)=>{  
+    let total = control.getTotal();
+    let list = control.getList();
 
-
-module.exports = function(app){
-    app.get('/', (req,res)=>{  
-        let total = control.getTotal();
-        let list = control.getList();
-        let _updatePage = ()=>{
-            location.href = '/update';
-        }
-
-        //템플릿에 넘겨줄 데이터 구성, setTimeout으로 감싼 이유는 res.render에 넘겨주는 데이터가 앞의 비동기함수에 의해 undefined로 형성되지 않기 위해서이다.
-        setTimeout(()=>{
-            console.log(list);
-            res.render('index.ejs', {   
-                title: "MANAGE MY MONEY",
-                total: total,
-                list: list,
-                updatePage: _updatePage,
-
-            })
-        },0);
-    })
-    app.get('/update', (req,res)=>{
-        res.render('update.ejs', {
-            title: "UPDATE"
+    //템플릿에 넘겨줄 데이터 구성, setTimeout으로 감싼 이유는 res.render에 넘겨주는 데이터가 앞의 비동기함수에 의해 undefined로 형성되지 않기 위해서이다.
+    setTimeout(()=>{
+        console.log(list);
+        res.render('index.ejs', {   
+            title: "MANAGE MY MONEY",
+            total: total,
+            list: list,
         })
+    },0);
+})
+router.get('/update', (req,res)=>{
+        res.render('./update/update.ejs', {
+            title: "UPDATE"
     })
-    app.post('/update-process', (req,res)=>{
-        console.log("post ok");
-        console.log(req.body);
+})
+router.post('/update-process', (req,res)=>{
+        let id = req.body.id;
+        let money = req.body.money;
 
-        fs.writeFileSync('./data/bank/kb02', req.body.money);
+        console.log(req.body);  
+
+        fs.writeFileSync(`./data/bank/${id}`, req.body.money);
         control.updateTotal();
 
-        res.render('index.ejs', {
-            total: control.getTotal(),
-            title: 'UPDATE'        
-        })
+        res.redirect('/');
+})
+
+router.get('/delete', (req,res)=>{
+    
+    
+    res.render('./delete/delete.ejs', {
+        title: 'DELETE',
+        total: control.getTotal(),
+        list: control.getList(),
     })
-}
+})
+
+module.exports = router;

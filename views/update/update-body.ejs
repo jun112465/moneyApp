@@ -1,0 +1,18 @@
+<div id='container'>
+    <%- include('../nav.ejs') %>
+    <!-- <h1><a href="/">HOME</a></h1> -->
+    <h1><%= title%></h1>
+    <form action='/update-process' method='post'>
+        <h2>KB국민 07560104204856</h2>
+        <input type="hidden" name='id' value='kb01'>
+        <input type="text" name='money' placeholder='1000'>
+        <input type="submit" value='submit'>
+    </form>
+    
+    <form action='/update-process' method='post'>
+        <h2>KB국민 07560204222914</h2>
+        <input type="hidden" name='id' value='kb02'>
+        <input name='money' type='text' placeholder="1000">
+        <input type='submit' value='submit'>
+    </form>
+</div> 

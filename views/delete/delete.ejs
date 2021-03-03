@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+       <%- include ('../index/head.ejs') %>
+    </head>
+    <body>
+        <div id='container'>
+            <%- include('../nav.ejs') %>
+            <!-- <h1><a href="/">HOME</a></h1> -->
+            <h1><%= title%></h1>
+            <section id='delete'>
+                <li>
+                    <% for(let i=0; i<list.length; i++){ %>
+                        <div>
+                            <ul><%= list[i].name %> : <%= list[i].value %></ul>
+                            <input type='submit' value='delete'>
+                        </div>
+                    <% } %>
+                </li>
+            </section>
+        </div> 
+    </body>
+</html>
+
+<!-- ejs 컴파일 오류는 문법 오류일 가능성 높다, 인터넷으로 최신문법을 확인하자-->

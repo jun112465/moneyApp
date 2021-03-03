@@ -1,0 +1,18 @@
+<div id='container'>
+    <%- include('../nav.ejs') %>
+    <!-- <h1><a href="/">HOME</a></h1> -->
+    <h1><%= title%></h1>
+    
+    <section>
+        <div>
+            <h2>총 보유액 : <%=total%></h2>
+            <h3>
+                <ul>
+                    <% for(let i=0; i<list.length; i++) { %>
+                        <li><%=list[i].name%> : <%=list[i].value%></li>
+                    <%}%> 
+                </ul>
+            </h3>
+        </div>
+    </section>
+</div>    

@@ -19,4 +19,5 @@ let server = app.listen(3000, ()=>{
 })
 
 //라우터 연결 부분
-const router = require('./router/route')(app);
+const router = require('./router/route');
+app.use('/', router);
