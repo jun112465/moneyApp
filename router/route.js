@@ -1,6 +1,7 @@
 let fs = require('fs');
 let control = require('../control');
 let express = require('express');
+const { render } = require('ejs');
 let router = express.Router();
 
 router.get('/', (req,res)=>{  
@@ -19,7 +20,8 @@ router.get('/', (req,res)=>{
 })
 router.get('/update', (req,res)=>{
         res.render('./update/update.ejs', {
-            title: "UPDATE"
+            title: "UPDATE",
+            list: control.getList()
     })
 })
 router.post('/update-process', (req,res)=>{
@@ -35,13 +37,39 @@ router.post('/update-process', (req,res)=>{
 })
 
 router.get('/delete', (req,res)=>{
-    
-    
     res.render('./delete/delete.ejs', {
         title: 'DELETE',
         total: control.getTotal(),
         list: control.getList(),
     })
 })
+
+router.post('/delete-process', (req,res)=>{
+    let id = req.body.id;
+    fs.rmSync(`data/bank/${id}`);
+    control.updateTotal();
+
+    res.render('./delete/delete.ejs', {
+        title: 'DELETE',
+        total: control.getTotal(),
+        list: control.getList(),
+    })
+})
+
+router.get('/add', (req,res)=>{
+    res.render('add/add.ejs', {
+        title: 'ADD',
+    })
+})
+
+router.post('/add-process', (req,res)=>{
+    let id = req.body.id;
+    let value = req.body.value;
+    
+    fs.writeFileSync(`data/bank/${id}`, value);
+    control.updateTotal();
+    res.redirect('/');
+})
+
 
 module.exports = router;

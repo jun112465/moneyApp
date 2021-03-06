@@ -11,10 +11,11 @@
             <section id='delete'>
                 <li>
                     <% for(let i=0; i<list.length; i++){ %>
-                        <div>
-                            <ul><%= list[i].name %> : <%= list[i].value %></ul>
-                            <input type='submit' value='delete'>
-                        </div>
+                        <form action="/delete-process" method='post'>
+                            <ul><%=list[i].name%> : <%=list[i].value%></ul>
+                            <input type="hidden" name="id" value="<%=list[i].name%>" >
+                            <input type="submit">
+                        </form>
                     <% } %>
                 </li>
             </section>
